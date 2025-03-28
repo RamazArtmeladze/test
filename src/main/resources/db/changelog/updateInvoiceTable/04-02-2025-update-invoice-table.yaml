@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-invoice
+      author: r_artmeladze
+      changes:
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: patient_id
+                  type: UUID
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: patient_email
+                  type: varchar(50)
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: invoice_number
+                  type: varchar(50)
+        - renameColumn:
+            tableName: invoice
+            oldColumnName: sent_status
+            newColumnName: is_sent
+        - modifyDataType:
+            tableName: invoice
+            columnName: is_sent
+            newDataType: boolean

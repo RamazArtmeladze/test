@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-invoice-table
+      author: r_artmeladze
+      changes:
+        - createTable:
+            tableName: invoice
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: patient_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_amount
+                  type: DECIMAL(15, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_provided
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: insurance_policy_number
+                  type: VARCHAR(20)
+              - column:
+                  name: payment_method
+                  type: VARCHAR(50)
+              - column:
+                  name: comment
+                  type: TEXT
+
+

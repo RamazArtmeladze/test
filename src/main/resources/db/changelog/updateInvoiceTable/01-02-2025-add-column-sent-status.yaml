@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-invoice
+      author: r_artmeladze
+      changes:
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: sent_status
+                  type: VARCHAR(50)

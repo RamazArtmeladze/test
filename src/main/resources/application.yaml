@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: financial-management-service
+  datasource:
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.url}/realms/${keycloak.realm-name}
+          jwk-set-uri: ${keycloak.url}/realms/${keycloak.realm-name}/protocol/openid-connect/certs
+  data:
+    redis:
+      host: 10.10.14.19
+      port: 6379
+
+server:
+  port: 9013
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${DISCOVERY_HOST}:${DISCOVERY_PORT}/eureka
+    register-with-eureka: true
+    fetchRegistry: true
+  instance:
+    hostname: financial-management
+    prefer-ip-address: true
+
+db:
+  url: ${DATASOURCE_URL}
+  username: ${DATASOURCE_USERNAME}
+  password: ${DATASOURCE_PASSWORD}
+
+keycloak:
+  server-ip: ${SERVER_IP}
+  server-port: 8080
+  realm-name: Netto
+  url: http://${keycloak.server-ip}:${keycloak.server-port}
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+token:
+  converter:
+    principal-attribute: preferred_username
+
+env:
+  server-ip: ${SERVER_IP}
+  db:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  service:
+    authentication:
+      url: http://${env.server-ip}:9005/api/v1/users
+    facility:
+      url: http://${env.server-ip}:9009/api/v1/facilities
+    speciality:
+      url: http://${env.server-ip}:9011/api/v1/specialities
+    healthcare-provider:
+      url: http://${env.server-ip}:9007
+    financial-management:
+      url: http://${SERVER_IP}:9020
+
+cache:
+  otp:
+    ttl: 1500
